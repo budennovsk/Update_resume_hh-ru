@@ -9,9 +9,9 @@ services:
 
   app:
     build:
-      context: .
+      context: ..
     env_file:
-      - config.py
+      - ../config.py
     container_name: app
     ports:
       - 9999:8000
@@ -20,18 +20,18 @@ services:
 
   celery:
     build:
-      context: .
+      context: ..
     env_file:
-      - config.py
+      - ../config.py
     container_name: celery_app
     depends_on:
       - redis
 
   flower:
     build:
-      context: .
+      context: ..
     env_file:
-      - config.py
+      - ../config.py
     container_name: flower_app
     depends_on:
       - redis
