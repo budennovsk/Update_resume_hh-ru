@@ -5,12 +5,16 @@ from api import Update
 celery = Celery('tasks', broker=f'redis://{REDIS_HOST}:{REDIS_PORT}')
 
 
-
+@celery.task
 def send_resume():
-    print("выполнено")
     res = Update()
-    print(res)
-    res.update_resume()
+    result = res.update_resume()
+    if result == 204:
+        return 'Обновлено'
+    elif result == 429:
+        return 'Резюме не обновлено'
+    else:
+        raise Exception('Ошибка запроса')
 
 
 celery.conf.beat_schedule = {

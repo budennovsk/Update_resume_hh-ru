@@ -17,9 +17,4 @@ class Update:
         }
 
         response = requests.post(url=URL, headers=header)
-        print('qqqqqqqqqqqqq')
-        if response.status_code == 204:
-            return 204
-        if response.status_code == 403:
-            raise Exception('Ошибка авторизации Access Token')
         return response.status_code
