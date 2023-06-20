@@ -2,8 +2,11 @@ from celery import Celery
 from config import REDIS_HOST, REDIS_PORT, REDISUSER, REDIS_PASS
 from api import Update
 
+
 celery = Celery('tasks', broker=f'redis://{REDISUSER}:{REDIS_PASS}@{REDIS_HOST}:{REDIS_PORT}',
                 broker_connection_retry_on_startup=True)
+
+celery.conf.CELERYD_MAX_TASKS_PER_CHILD = 1
 
 
 @celery.task
