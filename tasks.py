@@ -8,6 +8,7 @@ celery = Celery('tasks', broker=f'redis://{REDISUSER}:{REDIS_PASS}@{REDIS_HOST}:
 
 @celery.task
 def send_resume():
+
     res = Update()
     result = res.update_resume()
     if result == 204:
