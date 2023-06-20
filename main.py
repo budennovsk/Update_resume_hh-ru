@@ -1,35 +1,15 @@
 from aiogram import Bot, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from config import *
+from config import TG_BOT_KEY, MY_ID_BOT
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-import requests
+from api import Update
+
 
 storage = MemoryStorage()
 bot = Bot(token=TG_BOT_KEY)
 disDot = Dispatcher(bot, storage=storage)
 
-
-class Update:
-    """ Класс обновления резюме через телеграм"""
-
-    @classmethod
-    def update_resume(cls):
-        """ Поднятие резюме """
-
-        URL = f'https://api.hh.ru/resumes/{MY_ID_RESUME}/publish/'
-
-        header = {
-            'Authorization': f'Bearer {ACCESS_TOKEN}',
-            'User-Agent': 'api-test-agent'
-        }
-
-        response = requests.post(url=URL, headers=header)
-        if response.status_code == 204:
-            return 204
-        if response.status_code == 403:
-            raise Exception('Ошибка авторизации Access Token')
-        return response.status_code
 
 @disDot.message_handler(commands=["start"])
 async def start_command(message: types.Message):
@@ -55,10 +35,10 @@ async def up_resume(message: types.Message):
 
     try:
         up = Update.update_resume()
-        if up == 204:
-            await message.reply('Резюме обновлено')
-        if message.from_id != 646576220:
+        if message.from_id != int(MY_ID_BOT):
             await message.reply('Ты не местный, я вызываю копов')
+        elif up == 204:
+            await message.reply('Резюме обновлено')
         else:
             await message.reply(f'Резюме не обновлено\n'
                                 f'Ошибка: {up}')
