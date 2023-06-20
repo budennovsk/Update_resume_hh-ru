@@ -27,15 +27,15 @@ services:
     depends_on:
       - redis
 
-  flower:
-    build:
-      context: .
-    env_file:
-      - config.py
-    container_name: flower_app
-    depends_on:
-      - redis
-      - celery
-    ports:
-      - 8888:5555
+#  flower:
+#    build:
+#      context: .
+#    env_file:
+#      - config.py
+#    container_name: flower_app
+#    depends_on:
+#      - redis
+#      - celery
+#    ports:
+#      - 8888:5555
 
