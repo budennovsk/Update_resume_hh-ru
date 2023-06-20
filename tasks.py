@@ -2,13 +2,12 @@ from celery import Celery
 from config import REDIS_HOST, REDIS_PORT, REDISUSER, REDIS_PASS
 from api import Update
 
-
-celery = Celery('tasks', broker=f'redis://{REDISUSER}:{REDIS_PASS}@{REDIS_HOST}:{REDIS_PORT}')
+celery = Celery('tasks', broker=f'redis://{REDISUSER}:{REDIS_PASS}@{REDIS_HOST}:{REDIS_PORT}',
+                broker_connection_retry_on_startup=True)
 
 
 @celery.task
 def send_resume():
-
     res = Update()
     result = res.update_resume()
     if result == 204:
