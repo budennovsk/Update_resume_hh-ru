@@ -24,7 +24,6 @@ services:
     env_file:
       - config.py
     container_name: celery_app
-    command: "sentry run worker"
     depends_on:
       - redis
 
