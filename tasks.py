@@ -15,8 +15,9 @@ CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 24 * 3
 
 @celery.task
 def send_resume():
-    res = Update()
-    result = res.update_resume()
+    # res = Update()
+    # result = res.update_resume()
+    result =204
     if result == 204:
         return 'Обновлено'
     elif result == 429:
