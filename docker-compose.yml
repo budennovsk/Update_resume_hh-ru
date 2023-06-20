@@ -13,6 +13,8 @@ services:
       context: .
     env_file:
       - config.py
+    command:
+      - bash -c "celery -A app.tasks.celery beat & celery -A app.tasks.celery worker --loglevel=debug"
     container_name: app
     ports:
       - 9999:8000
