@@ -11,4 +11,4 @@ RUN pip install -r requirements.txt
 COPY .. .
 
 RUN chmod a+x docker/*.sh
-#CMD ["/app/docker/celery.sh"]
+CMD ["/app/docker/celery.sh"]

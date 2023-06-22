@@ -6,9 +6,9 @@ from api import Update
 celery = Celery('tasks', broker=f'redis://{REDISUSER}:{REDIS_PASS}@{REDIS_HOST}:{REDIS_PORT}',
                 broker_connection_retry_on_startup=True)
 
-CELERYD_MAX_TASKS_PER_CHILD = 1  # 单work最多任务使用数
-CELERYD_CONCURRENCY = 3  # 单worker最大并发数
-CELERYD_MAX_MEMORY_PER_CHILD = 2000 # 单任务可占用2G内存
+CELERYD_MAX_TASKS_PER_CHILD = 1
+CELERYD_CONCURRENCY = 3
+CELERYD_MAX_MEMORY_PER_CHILD = 2000
 CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 24 * 3
 CELERYD_HIJACK_ROOT_LOGGER = False
 

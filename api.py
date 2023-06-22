@@ -7,14 +7,14 @@ class Update:
 
     @classmethod
     def update_resume(cls):
-        """ Поднятие резюме """
+        """ Поднятие резюме списка резюме 5 шт. """
+        for id_resume in MY_ID_RESUME.split(','):
+            URL = f'https://api.hh.ru/resumes/{id_resume}/publish/'
 
-        URL = f'https://api.hh.ru/resumes/{MY_ID_RESUME}/publish/'
+            header = {
+                'Authorization': f'Bearer {ACCESS_TOKEN}',
+                'User-Agent': 'api-test-agent'
+            }
 
-        header = {
-            'Authorization': f'Bearer {ACCESS_TOKEN}',
-            'User-Agent': 'api-test-agent'
-        }
-
-        response = requests.post(url=URL, headers=header)
-        return response.status_code
+            response = requests.post(url=URL, headers=header)
+            return response.status_code
