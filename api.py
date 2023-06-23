@@ -3,6 +3,7 @@ from config import MY_ID_RESUME, ACCESS_TOKEN
 
 
 class Update:
+    STATUS_CODE_RESPONSE = []
     """ Класс обновления резюме через телеграм"""
 
     @classmethod
@@ -17,4 +18,5 @@ class Update:
             }
 
             response = requests.post(url=URL, headers=header)
-            return response.status_code
+            cls.STATUS_CODE_RESPONSE.append(response.status_code)
+

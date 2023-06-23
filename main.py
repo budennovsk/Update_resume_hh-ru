@@ -32,16 +32,21 @@ async def up_resume(message: types.Message):
     """
     Обработка команды /up для поднятия резюме
     """
-
+    Update.STATUS_CODE_RESPONSE.clear()
     try:
-        up = Update.update_resume()
-        if message.from_id != int(MY_ID_BOT):
-            await message.reply('Ты не местный, я вызываю копов')
-        elif up == 204:
-            await message.reply('Резюме обновлено')
-        else:
-            await message.reply(f'Резюме не обновлено\n'
-                                f'Ошибка: {up}')
+        Update.update_resume()
+        res = Update.STATUS_CODE_RESPONSE
+        for up in res:
+            if message.from_id != int(MY_ID_BOT):
+                await message.reply('Ты не местный, я вызываю копов')
+            elif up == 204:
+                await message.reply('Резюме обновлено')
+            elif up == 403:
+                await message.reply(f'Ошибка токена авторизации\n'
+                                    f'Ошибка: {up}')
+            elif up == 429:
+                await message.reply(f'Ошибка обновления резюме \n'
+                                    f'Ошибка: {up}')
 
     except Exception as e:
         await message.reply(f'Ошибка системы {e}')
