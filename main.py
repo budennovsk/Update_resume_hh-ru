@@ -42,10 +42,10 @@ async def up_resume(message: types.Message):
             elif up == 204:
                 await message.reply('Резюме обновлено')
             elif up == 403:
-                await message.reply(f'Ошибка токена авторизации\n'
+                await message.reply(f'Неверный токен авторизации\n'
                                     f'Ошибка: {up}')
             elif up == 429:
-                await message.reply(f'Ошибка обновления резюме \n'
+                await message.reply(f'Резюме не обновлено \n'
                                     f'Ошибка: {up}')
 
     except Exception as e:
